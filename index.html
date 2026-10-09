@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1020">
+  <title>Atlas Smoków Altei — V13</title>
+  <link rel="stylesheet" href="style.css?v=altea-v13-fix-20261009">
+</head>
+<body>
+<header>
+  <div>
+    <div class="eyebrow">ALTEA · BESTIARIUSZ</div>
+    <h1>Atlas rozmiarów smoków</h1>
+    <p>Oryginalne grafiki smoków, punkty odniesienia z obrotem i osobny widok skrzydeł.</p>
+  </div>
+  <div class="toolbar">
+    <button id="reset" type="button">Reset widoku</button>
+    <button id="fitView" type="button">Dopasuj wszystko</button>
+    <button id="focusSelected" type="button">Zbliż na wybrany</button>
+  </div>
+</header>
+<main>
+  <aside>
+    <label for="search">Szukaj stworzenia</label>
+    <input id="search" placeholder="np. Oblyr, Vran…" autocomplete="off">
+    <label for="category">Kategoria</label>
+    <select id="category">
+      <option value="all">Wszystkie</option>
+      <option value="great">Wielkie Smoki</option>
+      <option value="higher">Wyższe Smoki</option>
+      <option value="dragon">Smoki</option>
+      <option value="drakonid">Drakonidy</option>
+    </select>
+    <label for="metric">Tryb porównania</label>
+    <select id="metric">
+      <option value="length">Długość (domyślnie)</option>
+      <option value="height">Wysokość — 1 smok + reference</option>
+      <option value="wingspan">Rozpiętość skrzydeł — z góry</option>
+    </select>
+    <p class="hint">Długość i wysokość to osobne skale, dzięki czemu nie deformujemy obrazów. W trybie wysokości wybierasz jednego smoka. Punkty odniesienia obrócisz przyciskiem ⟳.</p>
+    <div class="selection-actions">
+      <button type="button" id="selectAll">Zaznacz widoczne</button>
+      <button type="button" id="clearAll">Wyczyść smoki</button>
+    </div>
+    <div id="list" class="creature-list" aria-label="Lista smoków i drakonidów"></div>
+  </aside>
+  <section class="workspace">
+    <div class="ref-toolbar">
+      <button id="openRefs" class="ref-open" type="button" aria-haspopup="dialog" aria-controls="referenceDialog">＋ Dodaj punkt odniesienia <span id="refCount">(0)</span></button>
+      <div id="refChips" class="ref-chips" aria-live="polite"><span class="ref-placeholder">Nie wybrano punktów odniesienia</span></div>
+    </div>
+    <div class="status">
+      <span id="sceneTitle">Lista · wspólna skala w metrach</span>
+      <span id="zoomLabel">1 m = 1 jednostka planszy</span>
+    </div>
+    <div class="mode-toolbar" role="group" aria-label="Sposób wyświetlania">
+      <button id="viewList" type="button" class="mode active" aria-pressed="true">Lista</button>
+      <button id="viewSide" type="button" class="mode" aria-pressed="false">Obok siebie</button>
+      <button id="viewOverlay" type="button" class="mode" aria-pressed="false">Nałożone</button>
+      <label for="overlayAlpha" id="alphaWrap" class="alpha-wrap" hidden>Przezroczystość <input id="overlayAlpha" type="range" min="25" max="90" value="60" step="5"></label>
+      <span class="scale-indicator">BEZ ROZCIĄGANIA GRAFIK</span>
+    </div>
+    <div id="viewport" tabindex="0" aria-label="Plansza porównania obiektów w tej samej skali">
+      <svg id="scene" xmlns="http://www.w3.org/2000/svg" role="img"><g id="world"></g></svg>
+      <div id="overlayLegend" class="overlay-legend" hidden></div>
+    </div>
+    <div class="bottom">
+      <span id="viewNote">Oryginalne grafiki bez deformacji. Małe stworzenia możesz przybliżać bez zmiany ich proporcji.</span>
+      <div><button id="zoomOut" type="button" aria-label="Oddal">−</button><button id="zoomIn" type="button" aria-label="Przybliż">＋</button></div>
+    </div>
+    <div id="details" class="details" aria-live="polite">Wybierz stworzenie, aby zobaczyć dokładne wymiary.</div>
+  </section>
+</main>
+<dialog id="referenceDialog" aria-labelledby="refDialogTitle" class="ref-dialog">
+  <div class="ref-dialog-top">
+    <div><h2 id="refDialogTitle">Punkty odniesienia</h2><p>Wybierz obiekty i obracaj je przyciskiem ⟳.</p></div>
+    <button type="button" id="closeRefs" aria-label="Zamknij okno" class="close-refs">✕</button>
+  </div>
+  <label for="referenceSearch">Szukaj punktu odniesienia</label>
+  <input id="referenceSearch" type="search" placeholder="np. człowiek, wieża, samolot…" autocomplete="off">
+  <div class="ref-dialog-actions">
+    <button type="button" id="refHuman">＋ Człowiek</button>
+    <button type="button" id="refAll">Zaznacz wszystkie</button>
+    <button type="button" id="refClear">Wyczyść</button>
+  </div>
+  <div id="refOptions" class="ref-options"></div>
+  <div class="ref-dialog-footer"><button id="refDone" type="button" class="ref-done">Gotowe</button></div>
+</dialog>
+<script src="data.js?v=altea-v13-fix-20261009"></script>
+<script src="app.js?v=altea-v13-fix-20261009"></script>
+</body>
+</html>
